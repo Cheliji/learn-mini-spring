@@ -5,6 +5,8 @@ import com.cheliji.spring.beans.factory.config.BeanDefinition;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
+    private SimpleInstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
+
     @Override
     protected Object createBean(String beanName, BeanDefinition beanDefinition) {
         return doCreateBean(beanName,beanDefinition) ;
@@ -12,11 +14,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     protected Object doCreateBean(String beanName, BeanDefinition beanDefinition) {
 
-        Class beanClass = beanDefinition.getBeanClass();
         Object bean = null ;
 
         try{
-            bean = beanClass.newInstance() ;
+            bean = instantiationStrategy.instantiate(beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed",e) ;
         }
