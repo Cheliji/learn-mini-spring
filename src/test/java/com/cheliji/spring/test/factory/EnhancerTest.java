@@ -1,5 +1,6 @@
 package com.cheliji.spring.test.factory;
 
+import com.cheliji.spring.test.factory.pojo.Dog;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import org.junit.Test;

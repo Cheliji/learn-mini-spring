@@ -1,4 +1,4 @@
-package com.cheliji.spring.test.factory;
+package com.cheliji.spring.test.factory.pojo;
 
 public class Dog {
 
