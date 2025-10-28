@@ -2,9 +2,9 @@ package com.cheliji.spring.test.factory;
 
 import com.cheliji.spring.beans.PropertyValue;
 import com.cheliji.spring.beans.PropertyValues;
-import com.cheliji.spring.beans.factory.BeanFactory;
 import com.cheliji.spring.beans.factory.config.BeanDefinition;
 import com.cheliji.spring.beans.factory.support.DefaultListableBeanFactory;
+import com.cheliji.spring.test.factory.pojo.Dog;
 import org.junit.Test;
 
 public class PropertyValueTest {

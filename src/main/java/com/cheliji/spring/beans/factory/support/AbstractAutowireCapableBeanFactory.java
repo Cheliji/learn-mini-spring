@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.cheliji.spring.beans.BeansException;
 import com.cheliji.spring.beans.PropertyValue;
 import com.cheliji.spring.beans.factory.config.BeanDefinition;
+import com.cheliji.spring.beans.factory.config.BeanReference;
 
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
@@ -20,9 +21,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         try{
             bean = instantiationStrategy.instantiate(beanDefinition);
-
             // 为 bean 添加属性值
-            //为bean填充属性
             applyPropertyValues(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed",e) ;
@@ -39,6 +38,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
                 String propertyName = propertyValue.getName();
                 Object value = propertyValue.getValue();
+                // 如果 value 类型为 BeanReference 则将依赖 Bean 注入
+                if (value instanceof BeanReference) {
+                    BeanReference reference = (BeanReference) value;
+                    value = getBean(reference.getBeanName());
+                }
 
                 BeanUtil.setFieldValue(bean,propertyName,value);
             }
